@@ -1,0 +1,20 @@
+[PASS] Record is abstract - cannot be instantiated
+       compiler says: error: cannot declare variable 'r' to be of abstract type 'elm::Record'
+[PASS] Person is abstract - cannot be instantiated
+       compiler says: error: cannot declare variable 'p' to be of abstract type 'elm::Person'
+[PASS] LeavePolicy is abstract - cannot be instantiated
+       compiler says: error: cannot declare variable 'p' to be of abstract type 'elm::LeavePolicy'
+[PASS] Private member is not reachable (Employee name_)
+       compiler says: error: 'std::string elm::Person::name_' is private within this context
+[PASS] Record id is read-only from outside (no setter)
+       compiler says: error: 'class elm::Employee' has no member named 'setId'
+[PASS] PtrList cannot be copied (would double-delete)
+       compiler says: error: use of deleted function 'elm::PtrList<T>::PtrList(const elm::PtrList<T>&) [with T = elm::Employee]'
+[PASS] LeaveSystem cannot be copied
+       compiler says: error: use of deleted function 'elm::LeaveSystem::LeaveSystem(const elm::LeaveSystem&)'
+[PASS] Const reference cannot be modified (Employee&)
+       compiler says: error: passing 'const elm::Employee' as 'this' argument discards qualifiers [-fpermissive]
+[PASS] Status enum class does not convert to int implicitly
+       compiler says: error: cannot convert 'elm::Status' to 'int' in initialization
+
+9/9 compile-fail proofs behaved as required

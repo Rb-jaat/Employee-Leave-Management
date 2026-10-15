@@ -1,0 +1,330 @@
+[
+ {
+  "id": "T01",
+  "operation": "Add employee (valid)",
+  "input": "Krish Singh / Engineering / Developer / krish@acme.com / 2025-08-01",
+  "expected": "Added employee E001",
+  "actual": "matched: Added employee E001",
+  "status": "PASS"
+ },
+ {
+  "id": "T02",
+  "operation": "Add employee: invalid e-mail",
+  "input": "e-mail 'bad' then valid",
+  "expected": "Enter a valid e-mail ; Added employee E001",
+  "actual": "matched: Enter a valid e-mail ; Added employee E001",
+  "status": "PASS"
+ },
+ {
+  "id": "T03",
+  "operation": "Add employee: invalid name",
+  "input": "name 'R2D2' then valid",
+  "expected": "Name must be 2-40 ; Added employee E001",
+  "actual": "matched: Name must be 2-40 ; Added employee E001",
+  "status": "PASS"
+ },
+ {
+  "id": "T04",
+  "operation": "Add employee: impossible date",
+  "input": "joining date 2026-02-30",
+  "expected": "Not a real calendar date ; Added employee E001",
+  "actual": "matched: Not a real calendar date ; Added employee E001",
+  "status": "PASS"
+ },
+ {
+  "id": "T05",
+  "operation": "Add manager + holiday",
+  "input": "manager Priya Nair (HR), holiday 2026-12-25",
+  "expected": "Added manager M001 ; Added holiday H001",
+  "actual": "matched: Added manager M001 ; Added holiday H001",
+  "status": "PASS"
+ },
+ {
+  "id": "T06",
+  "operation": "Add duplicate holiday date",
+  "input": "2026-12-25 twice",
+  "expected": "Added holiday H001 ; already a holiday",
+  "actual": "matched: Added holiday H001 ; already a holiday",
+  "status": "PASS"
+ },
+ {
+  "id": "T07",
+  "operation": "Display all employees",
+  "input": "Display > Employees",
+  "expected": "Aarav Sharma ; Neha Gupta ; 8 record(s)",
+  "actual": "matched: Aarav Sharma ; Neha Gupta ; 8 record(s)",
+  "status": "PASS"
+ },
+ {
+  "id": "T08",
+  "operation": "Display everything (polymorphic)",
+  "input": "Display > Everything",
+  "expected": "[Employee] ; [Manager] ; [LeaveRequest] ; [Approval] ; [Holiday]",
+  "actual": "matched: [Employee] ; [Manager] ; [LeaveRequest] ; [Approval] ; [Holiday]",
+  "status": "PASS"
+ },
+ {
+  "id": "T09",
+  "operation": "Search employee by department",
+  "input": "text 'sales'",
+  "expected": "Vikram Rao ; Sana Khan ; Arjun Verma ; 3 record(s)",
+  "actual": "matched: Vikram Rao ; Sana Khan ; Arjun Verma ; 3 record(s)",
+  "status": "PASS"
+ },
+ {
+  "id": "T10",
+  "operation": "Search with no match",
+  "input": "text 'zzzz'",
+  "expected": "(no records)",
+  "actual": "matched: (no records)",
+  "status": "PASS"
+ },
+ {
+  "id": "T11",
+  "operation": "Search requests overlapping a date range",
+  "input": "2026-10-26 .. 2026-10-30",
+  "expected": "R0001 ; R0003",
+  "actual": "matched: R0001 ; R0003",
+  "status": "PASS"
+ },
+ {
+  "id": "T12",
+  "operation": "Update employee",
+  "input": "E001: new designation 'Senior Engineer', others kept",
+  "expected": "Updated E001 ; Senior Engineer",
+  "actual": "matched: Updated E001 ; Senior Engineer",
+  "status": "PASS"
+ },
+ {
+  "id": "T13",
+  "operation": "Update employee: duplicate e-mail",
+  "input": "E001 e-mail -> diya@acme.com",
+  "expected": "already belongs to E002",
+  "actual": "matched: already belongs to E002",
+  "status": "PASS"
+ },
+ {
+  "id": "T14",
+  "operation": "Update pending leave request",
+  "input": "R0005 -> 2026-11-09..2026-11-10",
+  "expected": "Updated R0005 - now 2 working day(s)",
+  "actual": "matched: Updated R0005 - now 2 working day(s)",
+  "status": "PASS"
+ },
+ {
+  "id": "T15",
+  "operation": "Update an approved request (refused)",
+  "input": "R0001 is Approved",
+  "expected": "only a Pending request can be edited",
+  "actual": "matched: only a Pending request can be edited",
+  "status": "PASS"
+ },
+ {
+  "id": "T16",
+  "operation": "Delete employee with pending leave",
+  "input": "E003 has pending/approved leave",
+  "expected": "still has",
+  "actual": "matched: still has",
+  "status": "PASS"
+ },
+ {
+  "id": "T17",
+  "operation": "Delete employee (no active leave)",
+  "input": "add E009, then delete E009",
+  "expected": "Added employee E009 ; Deleted. 0 history",
+  "actual": "matched: Added employee E009 ; Deleted. 0 history",
+  "status": "PASS"
+ },
+ {
+  "id": "T18",
+  "operation": "Delete holiday",
+  "input": "H001 (New Year's Day)",
+  "expected": "Deleted. ; 9 record(s)",
+  "actual": "matched: Deleted. ; 9 record(s)",
+  "status": "PASS"
+ },
+ {
+  "id": "T19",
+  "operation": "Apply for leave (valid)",
+  "input": "E001 AL 2026-11-16..2026-11-17 'Visit home'",
+  "expected": "submitted: 2 working day(s) ; Pending",
+  "actual": "matched: submitted: 2 working day(s) ; Pending",
+  "status": "PASS"
+ },
+ {
+  "id": "T20",
+  "operation": "Apply for leave: overlap",
+  "input": "E001 AL 2026-10-30 (already on R0001)",
+  "expected": "overlap with Approved request R0001",
+  "actual": "matched: overlap with Approved request R0001",
+  "status": "PASS"
+ },
+ {
+  "id": "T21",
+  "operation": "Apply: insufficient balance",
+  "input": "11 days, then 5 more with only 4 left",
+  "expected": "submitted: 11 working day(s) ; insufficient Annual Leave balance",
+  "actual": "matched: submitted: 11 working day(s) ; insufficient Annual Leave balance",
+  "status": "PASS"
+ },
+ {
+  "id": "T22",
+  "operation": "Apply: notice period rule",
+  "input": "AL starting tomorrow (3 days notice needed)",
+  "expected": "needs at least 3 day(s) notice",
+  "actual": "matched: needs at least 3 day(s) notice",
+  "status": "PASS"
+ },
+ {
+  "id": "T23",
+  "operation": "Apply: weekend only",
+  "input": "2026-10-17..2026-10-18 (Sat-Sun)",
+  "expected": "no working day",
+  "actual": "matched: no working day",
+  "status": "PASS"
+ },
+ {
+  "id": "T24",
+  "operation": "Manager approves request",
+  "input": "R0003 by M001",
+  "expected": "R0003 Approved",
+  "actual": "matched: R0003 Approved",
+  "status": "PASS"
+ },
+ {
+  "id": "T25",
+  "operation": "Manager rejects (reason mandatory)",
+  "input": "R0006 by M001; empty reason first",
+  "expected": "cannot be empty ; R0006 Rejected",
+  "actual": "matched: cannot be empty ; R0006 Rejected",
+  "status": "PASS"
+ },
+ {
+  "id": "T26",
+  "operation": "Wrong-department manager",
+  "input": "Engineering head decides a Sales request",
+  "expected": "cannot decide for the Sales department",
+  "actual": "matched: cannot decide for the Sales department",
+  "status": "PASS"
+ },
+ {
+  "id": "T27",
+  "operation": "Department cover rule",
+  "input": "3rd Engineering approval on same day blocked",
+  "expected": "R0011 Approved ; cover rule",
+  "actual": "matched: R0011 Approved ; cover rule",
+  "status": "PASS"
+ },
+ {
+  "id": "T28",
+  "operation": "Cancel a pending request",
+  "input": "R0005",
+  "expected": "Cancelled. Balance restored ; Cancelled",
+  "actual": "matched: Cancelled. Balance restored ; Cancelled",
+  "status": "PASS"
+ },
+ {
+  "id": "T29",
+  "operation": "Cancel an already rejected request",
+  "input": "R0004 is Rejected",
+  "expected": "cannot be cancelled",
+  "actual": "matched: cannot be cancelled",
+  "status": "PASS"
+ },
+ {
+  "id": "T30",
+  "operation": "Check leave balance",
+  "input": "E001",
+  "expected": "Leave balance for Aarav Sharma ; AL Annual Leave",
+  "actual": "matched: Leave balance for Aarav Sharma ; AL Annual Leave",
+  "status": "PASS"
+ },
+ {
+  "id": "T31",
+  "operation": "Report: department summary",
+  "input": "Reports > 2",
+  "expected": "Department summary ; Engineering ; Sales",
+  "actual": "matched: Department summary ; Engineering ; Sales",
+  "status": "PASS"
+ },
+ {
+  "id": "T32",
+  "operation": "Report: monthly calendar",
+  "input": "October 2026",
+  "expected": "Leave calendar - October 2026 ; Aarav Sharma",
+  "actual": "matched: Leave calendar - October 2026 ; Aarav Sharma",
+  "status": "PASS"
+ },
+ {
+  "id": "T33",
+  "operation": "Report: who is on leave",
+  "input": "2026-10-30",
+  "expected": "Aarav Sharma ; Total on approved leave: 1",
+  "actual": "matched: Aarav Sharma ; Total on approved leave: 1",
+  "status": "PASS"
+ },
+ {
+  "id": "T34",
+  "operation": "Report: overall summary",
+  "input": "Reports > 5",
+  "expected": "Approval rate ; Most leave taken",
+  "actual": "matched: Approval rate ; Most leave taken",
+  "status": "PASS"
+ },
+ {
+  "id": "T35",
+  "operation": "Export CSV",
+  "input": "Reports > 6 -> report.csv",
+  "expected": "Exported to report.csv",
+  "actual": "matched: Exported to report.csv",
+  "status": "PASS"
+ },
+ {
+  "id": "T36",
+  "operation": "Audit log",
+  "input": "after adding an employee",
+  "expected": "ADD_EMPLOYEE ; E009 Temp Person",
+  "actual": "matched: ADD_EMPLOYEE ; E009 Temp Person",
+  "status": "PASS"
+ },
+ {
+  "id": "T37",
+  "operation": "Invalid menu input",
+  "input": "'abc' and '42'",
+  "expected": "Enter a whole number between 1 and 9",
+  "actual": "matched: Enter a whole number between 1 and 9",
+  "status": "PASS"
+ },
+ {
+  "id": "T38",
+  "operation": "Exit asks to save unsaved work",
+  "input": "add record then Exit > y",
+  "expected": "Save before exit ; Saved. ; Goodbye",
+  "actual": "matched: Save before exit ; Saved. ; Goodbye",
+  "status": "PASS"
+ },
+ {
+  "id": "T39",
+  "operation": "Input closed (Ctrl-D) auto-saves",
+  "input": "stream ends after an edit",
+  "expected": "Input closed ; auto-saved",
+  "actual": "matched: Input closed ; auto-saved",
+  "status": "PASS"
+ },
+ {
+  "id": "T40",
+  "operation": "Persistence across restarts",
+  "input": "run 1: add + save, quit; run 2: display",
+  "expected": "Krish Singh ; 1 record(s)",
+  "actual": "matched",
+  "status": "PASS"
+ },
+ {
+  "id": "T41",
+  "operation": "Corrupt data file",
+  "input": "junk line appended to employees.dat",
+  "expected": "warning(s) ; skipped",
+  "actual": "matched",
+  "status": "PASS"
+ }
+]
